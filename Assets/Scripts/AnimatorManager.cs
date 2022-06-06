@@ -64,10 +64,10 @@ public class AnimatorManager : MonoBehaviour
         }
         #endregion
 
-        //animator.SetFloat(horizontal, snappedHorizontal, 0.1f, Time.deltaTime);
-        //animator.SetFloat(vertical, snappedVertical, 0.1f, Time.deltaTime);
-        animator.SetFloat(horizontal, horizontalMovement, 0.1f, Time.deltaTime);
-        animator.SetFloat(vertical, verticalMovement, 0.1f, Time.deltaTime);
+        animator.SetFloat(horizontal, snappedHorizontal, 0.1f, Time.deltaTime);
+        animator.SetFloat(vertical, snappedVertical, 0.1f, Time.deltaTime);
+        //animator.SetFloat(horizontal, horizontalMovement, 0.1f, Time.deltaTime);
+        //animator.SetFloat(vertical, verticalMovement, 0.1f, Time.deltaTime);
         
     }
 }
