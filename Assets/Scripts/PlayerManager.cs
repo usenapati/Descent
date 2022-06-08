@@ -7,7 +7,8 @@ public class PlayerManager : MonoBehaviour
     Animator animator;
     InputManager inputManager;
     CameraManager cameraManager;
-    PlayerLocomotion playerLocomotion;
+    //PlayerLocomotion playerLocomotion;
+    PlayerMovementAdvanced playerMovement;
 
     public bool isInteracting;
 
@@ -16,17 +17,18 @@ public class PlayerManager : MonoBehaviour
         animator = GetComponent<Animator>();
         inputManager = GetComponent<InputManager>();
         cameraManager = FindObjectOfType<CameraManager>();
-        playerLocomotion = GetComponent<PlayerLocomotion>();
+        //playerLocomotion = GetComponent<PlayerLocomotion>();
+        playerMovement = GetComponent<PlayerMovementAdvanced>();
     }
 
     private void Update()
     {
-        inputManager.HandleAllInputs();
+        //inputManager.HandleAllInputs();
     }
 
     private void FixedUpdate()
     {
-        playerLocomotion.HandleAllMovement();
+        //playerLocomotion.HandleAllMovement();
     }
 
     private void LateUpdate()
@@ -37,7 +39,16 @@ public class PlayerManager : MonoBehaviour
         }
 
         isInteracting = animator.GetBool("IsInteracting");
-        playerLocomotion.isJumping = animator.GetBool("IsJumping");
-        animator.SetBool("IsGrounded", playerLocomotion.isGrounded);
+        //playerLocomotion.isJumping = animator.GetBool("IsJumping");
+        if (playerMovement.state == PlayerMovementAdvanced.MovementState.air ||
+            playerMovement.state == PlayerMovementAdvanced.MovementState.wallrunning)
+        {
+            animator.SetBool("IsGrounded", false);
+        }
+        else
+        {
+            animator.SetBool("IsGrounded", true);
+        }
+        
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class CameraManager : MonoBehaviour
 {
@@ -23,14 +24,20 @@ public class CameraManager : MonoBehaviour
 
     [Header("Camera Speed Values")]
     public float cameraFollowSpeed = 0.2f;
-    public float cameraLookSpeed = 2;
-    public float cameraPivotSpeed = 2;
+    public float cameraLookSpeed = 2; // sensX
+    public float cameraPivotSpeed = 2; // sensY
 
     [Header("Camera Angle Values")]
     public float lookAngle; // Camera looking up and down
     public float pivotAngle; // Camera looking left and right
     public float minPivotAngle = -35;
     public float maxPivotAngle = 35;
+
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
 
     private void Awake()
     {
@@ -94,5 +101,15 @@ public class CameraManager : MonoBehaviour
 
         cameraVectorPosition.z = Mathf.Lerp(cameraTransform.localPosition.z, targetPosition, 0.2f);
         cameraTransform.localPosition = cameraVectorPosition;
+    }
+
+    public void DoFov(float endValue)
+    {
+        GetComponentInChildren<Camera>().DOFieldOfView(endValue, 0.25f);
+    }
+
+    public void DoTilt(float zTilt)
+    {
+        transform.DOLocalRotate(new Vector3(0, 0, zTilt), 0.25f);
     }
 }

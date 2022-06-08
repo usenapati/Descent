@@ -224,13 +224,22 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "CrouchSlide",
+                    "type": "Button",
+                    "id": "19d61763-90d3-4d0b-8466-ef53fa615048",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
                 {
                     "name": "",
                     "id": "0257b278-bfd0-4662-848b-20458da4eb88",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<Gamepad>/leftStickPress",
                     "interactions": "",
                     "processors": "",
                     "groups": "Controller",
@@ -255,7 +264,7 @@
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard and Mouse",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -266,8 +275,100 @@
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Controller",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0ee6710e-7599-476a-8218-39757f79626b",
+                    "path": "<Keyboard>/leftCtrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
+                    "action": "CrouchSlide",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a0aefcc6-d1d6-4a93-ada3-a185967914ea",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "CrouchSlide",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Wallrunning",
+            "id": "eccdf4aa-0c97-43d5-b728-772b4824eec5",
+            "actions": [
+                {
+                    "name": "UpwardsRun",
+                    "type": "Button",
+                    "id": "4f197ee5-5234-47ec-b7a6-b30cb0a096f0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DownwardsRun",
+                    "type": "Button",
+                    "id": "8e57c0b9-0fe0-465a-a567-7ed087bdbe28",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "922b80bc-d33d-499c-b07b-6c3f1d3c883c",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
+                    "action": "UpwardsRun",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8bf3636c-187a-4c7f-9359-cbc712ff8ea5",
+                    "path": "<Gamepad>/leftStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "UpwardsRun",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "99186715-8504-441b-9817-1dc26d4a1951",
+                    "path": "<Keyboard>/leftCtrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
+                    "action": "DownwardsRun",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a4845e63-aa83-46b1-9cb6-85bb5b8f0735",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "DownwardsRun",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

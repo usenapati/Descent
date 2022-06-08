@@ -6,7 +6,8 @@ public class InputManager : MonoBehaviour
 {
     PlayerControls playerControls;
     AnimatorManager animatorManager;
-    PlayerLocomotion playerLocomotion;
+    PlayerMovementAdvanced playerMovement;
+    //PlayerLocomotion playerLocomotion;
 
     public Vector2 movementInput;
     public Vector2 cameraInput;
@@ -20,11 +21,15 @@ public class InputManager : MonoBehaviour
 
     public bool sprint_Input;
     public bool jump_Input;
+    public bool crouch_slide_Input;
+    public bool upward_run_Input;
+    public bool downward_run_Input;
 
     private void Awake()
     {
         animatorManager = GetComponent<AnimatorManager>();
-        playerLocomotion = GetComponent<PlayerLocomotion>();
+        playerMovement = GetComponent<PlayerMovementAdvanced>();
+        //playerLocomotion = GetComponent<PlayerLocomotion>();
     }
 
     private void OnEnable()
@@ -40,6 +45,13 @@ public class InputManager : MonoBehaviour
             playerControls.PlayerActions.Sprint.canceled += i => sprint_Input = false;
 
             playerControls.PlayerActions.Jump.performed += i => jump_Input = true;
+            playerControls.PlayerActions.Jump.canceled += i => jump_Input = false;
+
+            playerControls.PlayerActions.CrouchSlide.performed += i => crouch_slide_Input = true;
+            playerControls.PlayerActions.CrouchSlide.canceled += i => crouch_slide_Input = false;
+
+            playerControls.Wallrunning.UpwardsRun.performed += i => upward_run_Input = true;
+            playerControls.Wallrunning.DownwardsRun.performed += i => downward_run_Input = true;
         }
 
         playerControls.Enable();
@@ -54,7 +66,8 @@ public class InputManager : MonoBehaviour
     {
         HandleMovementInput();
         HandleSprintingInput();
-        HandleJumpingInput();
+        //HandleJumpingInput();
+        //HandleCrouchingSlidingInput();
     }
 
     private void HandleMovementInput()
@@ -66,19 +79,26 @@ public class InputManager : MonoBehaviour
         cameraInputY = cameraInput.y;
 
         moveAmount = Mathf.Clamp01(Mathf.Abs(horizontalInput) + Mathf.Abs(verticalInput));
-        animatorManager.UpdateAnimatorValues(0, moveAmount, playerLocomotion.isSprinting);
+        if (playerMovement.state == PlayerMovementAdvanced.MovementState.sprinting)
+        {
+            animatorManager.UpdateAnimatorValues(0, moveAmount, true);
+        }
+        else
+        {
+            animatorManager.UpdateAnimatorValues(0, moveAmount, false);
+        }        
     }
 
     private void HandleSprintingInput()
     {
-        if (sprint_Input && moveAmount > 0.5f)
-        {
-            playerLocomotion.isSprinting = true;
-        }
-        else
-        {
-            playerLocomotion.isSprinting = false;
-        }
+        //if (sprint_Input && moveAmount > 0.5f)
+        //{
+        //    //playerLocomotion.isSprinting = true;
+        //}
+        //else
+        //{
+        //    //playerLocomotion.isSprinting = false;
+        //}
     }
 
     private void HandleJumpingInput()
@@ -86,7 +106,16 @@ public class InputManager : MonoBehaviour
         if (jump_Input)
         {
             jump_Input = false;
-            playerLocomotion.HandleJumping();
+        //    //playerLocomotion.HandleJumping();
+        }
+    }
+
+    private void HandleCrouchingSlidingInput()
+    {
+        if (crouch_slide_Input)
+        {
+            crouch_slide_Input = false;
+        //    //playerLocomotion.HandleJumping();
         }
     }
 }

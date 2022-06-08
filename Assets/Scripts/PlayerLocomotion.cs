@@ -6,7 +6,7 @@ public class PlayerLocomotion : MonoBehaviour
 {
     PlayerManager playerManager;
     AnimatorManager animatorManager;
-    InputManager inputManager;
+    //InputManager inputManager;
 
     Vector3 moveDirection;
 
@@ -41,7 +41,7 @@ public class PlayerLocomotion : MonoBehaviour
     {
         playerManager = GetComponent<PlayerManager>();
         animatorManager = GetComponent<AnimatorManager>();
-        inputManager = GetComponent<InputManager>();
+        //inputManager = GetComponent<InputManager>();
         playerRigidBody = GetComponent<Rigidbody>();
         cameraObject = Camera.main.transform;
     }
@@ -61,8 +61,8 @@ public class PlayerLocomotion : MonoBehaviour
         if (isJumping)
             return;
 
-        moveDirection = cameraObject.forward * inputManager.verticalInput;
-        moveDirection = moveDirection + cameraObject.right * inputManager.horizontalInput;
+        //moveDirection = cameraObject.forward * inputManager.verticalInput;
+        //moveDirection = moveDirection + cameraObject.right * inputManager.horizontalInput;
         moveDirection.Normalize();
         moveDirection.y = 0;
 
@@ -72,14 +72,14 @@ public class PlayerLocomotion : MonoBehaviour
         }
         else
         {
-            if (inputManager.moveAmount >= 0.5f)
-            {
-                moveDirection *= runningSpeed;
-            }
-            else
-            {
-                moveDirection *= walkingSpeed;
-            }
+            //if (inputManager.moveAmount >= 0.5f)
+           // {
+            //    moveDirection *= runningSpeed;
+           // }
+            //else
+            //{
+            //    moveDirection *= walkingSpeed;
+            //}
         }
         
         Vector3 movementVelocity = moveDirection;
@@ -93,8 +93,8 @@ public class PlayerLocomotion : MonoBehaviour
 
         Vector3 targetDirection = Vector3.zero;
 
-        targetDirection = cameraObject.forward * inputManager.verticalInput;
-        targetDirection = targetDirection + cameraObject.right * inputManager.horizontalInput;
+        //targetDirection = cameraObject.forward * inputManager.verticalInput;
+        //targetDirection = targetDirection + cameraObject.right * inputManager.horizontalInput;
         targetDirection.Normalize();
         targetDirection.y = 0;
 
@@ -123,10 +123,10 @@ public class PlayerLocomotion : MonoBehaviour
 
             inAirTimer += Time.deltaTime;
 
-            if (inputManager.moveAmount >= 0.5f)
-            {
-                playerRigidBody.AddForce(transform.forward * leapingVelocity);
-            }
+            //if (inputManager.moveAmount >= 0.5f)
+            //{
+            //    playerRigidBody.AddForce(transform.forward * leapingVelocity);
+            //}
             
             playerRigidBody.AddForce(-Vector3.up * fallingVelocity * inAirTimer);
         }
@@ -135,7 +135,7 @@ public class PlayerLocomotion : MonoBehaviour
         {
             if (!isGrounded && !playerManager.isInteracting)
             {
-                animatorManager.PlayTargetAnimation("Landing", true);
+                //animatorManager.PlayTargetAnimation("Landing", true);
             }
 
             Vector3 rayCastHitPoint = hit.point;
@@ -150,14 +150,14 @@ public class PlayerLocomotion : MonoBehaviour
 
         if (isGrounded && !isJumping)
         {
-            if (playerManager.isInteracting || inputManager.moveAmount > 0)
-            {
-                transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime / 0.1f);
-            } 
-            else
-            {
-                transform.position = targetPosition;
-            }      
+            //if (playerManager.isInteracting || inputManager.moveAmount > 0)
+            //{
+            //    transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime / 0.1f);
+            //} 
+            //else
+            //{
+            //    transform.position = targetPosition;
+            //}      
         }
     }
 
