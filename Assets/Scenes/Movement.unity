@@ -28723,6 +28723,7 @@ MonoBehaviour:
   sliding: 0
   crouching: 0
   wallrunning: 0
+  air: 0
   text_speed: {fileID: 1922875112}
   text_mode: {fileID: 390932497}
 --- !u!54 &910256011
@@ -37696,11 +37697,33 @@ MonoBehaviour:
   moveAmount: 0
   verticalInput: 0
   horizontalInput: 0
+  glide_Input: 0
   sprint_Input: 0
   jump_Input: 0
   crouch_slide_Input: 0
   upward_run_Input: 0
   downward_run_Input: 0
+--- !u!114 &1283365647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1283365645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1f3bdd9919a4184196786276bd536b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraManager: {fileID: 0}
+  rot: {x: 0, y: 0, z: 0}
+  lowSpeed: 12.5
+  highSpeed: 13.8
+  maxDrag: 6
+  minDrag: 2
+  minAngle: 0
+  maxAngle: 45
+  percentage: 0
 --- !u!1 &1285766948
 GameObject:
   m_ObjectHideFlags: 0
@@ -41873,7 +41896,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2158
+  m_Name: pb_Mesh-2084
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -53192,7 +53215,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2148
+  m_Name: pb_Mesh-2074
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -55378,17 +55401,17 @@ PrefabInstance:
     - target: {fileID: 656534244289873937, guid: bd56eb23ab1b0d24f957485ec4bab0bc,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 18.21
+      value: 16.5
       objectReference: {fileID: 0}
     - target: {fileID: 656534244289873937, guid: bd56eb23ab1b0d24f957485ec4bab0bc,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.89
+      value: 46.83
       objectReference: {fileID: 0}
     - target: {fileID: 656534244289873937, guid: bd56eb23ab1b0d24f957485ec4bab0bc,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 28.96
+      value: 2.2
       objectReference: {fileID: 0}
     - target: {fileID: 656534244289873937, guid: bd56eb23ab1b0d24f957485ec4bab0bc,
         type: 3}
