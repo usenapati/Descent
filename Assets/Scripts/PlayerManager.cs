@@ -23,12 +23,11 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-        //inputManager.HandleAllInputs();
+        inputManager.HandleAllInputs();
     }
 
     private void FixedUpdate()
     {
-        //playerLocomotion.HandleAllMovement();
     }
 
     private void LateUpdate()

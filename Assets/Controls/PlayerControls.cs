@@ -248,9 +248,18 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""CrouchSlide"",
+                    ""name"": ""Crouch"",
                     ""type"": ""Button"",
                     ""id"": ""19d61763-90d3-4d0b-8466-ef53fa615048"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Slide"",
+                    ""type"": ""Button"",
+                    ""id"": ""5b3ea953-5f78-49c6-9bf6-93230eec509b"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -309,7 +318,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""CrouchSlide"",
+                    ""action"": ""Crouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -320,7 +329,29 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Controller"",
-                    ""action"": ""CrouchSlide"",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6d12956e-7ca5-4bd0-95a2-7c94b02795a2"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Slide"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4a6744cc-d16a-4fb2-aa0a-90690d8d6ef9"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Slide"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -435,7 +466,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_PlayerActions = asset.FindActionMap("Player Actions", throwIfNotFound: true);
         m_PlayerActions_Sprint = m_PlayerActions.FindAction("Sprint", throwIfNotFound: true);
         m_PlayerActions_Jump = m_PlayerActions.FindAction("Jump", throwIfNotFound: true);
-        m_PlayerActions_CrouchSlide = m_PlayerActions.FindAction("CrouchSlide", throwIfNotFound: true);
+        m_PlayerActions_Crouch = m_PlayerActions.FindAction("Crouch", throwIfNotFound: true);
+        m_PlayerActions_Slide = m_PlayerActions.FindAction("Slide", throwIfNotFound: true);
         // Wallrunning
         m_Wallrunning = asset.FindActionMap("Wallrunning", throwIfNotFound: true);
         m_Wallrunning_UpwardsRun = m_Wallrunning.FindAction("UpwardsRun", throwIfNotFound: true);
@@ -542,14 +574,16 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private IPlayerActionsActions m_PlayerActionsActionsCallbackInterface;
     private readonly InputAction m_PlayerActions_Sprint;
     private readonly InputAction m_PlayerActions_Jump;
-    private readonly InputAction m_PlayerActions_CrouchSlide;
+    private readonly InputAction m_PlayerActions_Crouch;
+    private readonly InputAction m_PlayerActions_Slide;
     public struct PlayerActionsActions
     {
         private @PlayerControls m_Wrapper;
         public PlayerActionsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Sprint => m_Wrapper.m_PlayerActions_Sprint;
         public InputAction @Jump => m_Wrapper.m_PlayerActions_Jump;
-        public InputAction @CrouchSlide => m_Wrapper.m_PlayerActions_CrouchSlide;
+        public InputAction @Crouch => m_Wrapper.m_PlayerActions_Crouch;
+        public InputAction @Slide => m_Wrapper.m_PlayerActions_Slide;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -565,9 +599,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Jump.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnJump;
-                @CrouchSlide.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnCrouchSlide;
-                @CrouchSlide.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnCrouchSlide;
-                @CrouchSlide.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnCrouchSlide;
+                @Crouch.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnCrouch;
+                @Crouch.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnCrouch;
+                @Crouch.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnCrouch;
+                @Slide.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnSlide;
+                @Slide.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnSlide;
+                @Slide.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnSlide;
             }
             m_Wrapper.m_PlayerActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -578,9 +615,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
-                @CrouchSlide.started += instance.OnCrouchSlide;
-                @CrouchSlide.performed += instance.OnCrouchSlide;
-                @CrouchSlide.canceled += instance.OnCrouchSlide;
+                @Crouch.started += instance.OnCrouch;
+                @Crouch.performed += instance.OnCrouch;
+                @Crouch.canceled += instance.OnCrouch;
+                @Slide.started += instance.OnSlide;
+                @Slide.performed += instance.OnSlide;
+                @Slide.canceled += instance.OnSlide;
             }
         }
     }
@@ -653,7 +693,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     {
         void OnSprint(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
-        void OnCrouchSlide(InputAction.CallbackContext context);
+        void OnCrouch(InputAction.CallbackContext context);
+        void OnSlide(InputAction.CallbackContext context);
     }
     public interface IWallrunningActions
     {

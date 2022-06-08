@@ -21,7 +21,8 @@ public class InputManager : MonoBehaviour
 
     public bool sprint_Input;
     public bool jump_Input;
-    public bool crouch_slide_Input;
+    public bool crouch_Input;
+    public bool slide_Input;
     public bool upward_run_Input;
     public bool downward_run_Input;
 
@@ -47,11 +48,15 @@ public class InputManager : MonoBehaviour
             playerControls.PlayerActions.Jump.performed += i => jump_Input = true;
             playerControls.PlayerActions.Jump.canceled += i => jump_Input = false;
 
-            playerControls.PlayerActions.CrouchSlide.performed += i => crouch_slide_Input = true;
-            playerControls.PlayerActions.CrouchSlide.canceled += i => crouch_slide_Input = false;
+            playerControls.PlayerActions.Crouch.performed += i => crouch_Input = true;
+            playerControls.PlayerActions.Crouch.canceled += i => crouch_Input = false;
+
+            playerControls.PlayerActions.Slide.performed += i => slide_Input = true;
+            playerControls.PlayerActions.Slide.canceled += i => slide_Input = false;
 
             playerControls.Wallrunning.UpwardsRun.performed += i => upward_run_Input = true;
             playerControls.Wallrunning.DownwardsRun.performed += i => downward_run_Input = true;
+
         }
 
         playerControls.Enable();
@@ -65,7 +70,7 @@ public class InputManager : MonoBehaviour
     public void HandleAllInputs()
     {
         HandleMovementInput();
-        HandleSprintingInput();
+        //HandleSprintingInput();
         //HandleJumpingInput();
         //HandleCrouchingSlidingInput();
     }
@@ -110,11 +115,19 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    private void HandleCrouchingSlidingInput()
+    private void HandleCrouchingInput()
     {
-        if (crouch_slide_Input)
+        if (crouch_Input)
         {
-            crouch_slide_Input = false;
+            crouch_Input = false;
+        //    //playerLocomotion.HandleJumping();
+        }
+    }
+    private void HandleSlidingInput()
+    {
+        if (slide_Input)
+        {
+            slide_Input = false;
         //    //playerLocomotion.HandleJumping();
         }
     }

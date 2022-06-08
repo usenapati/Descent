@@ -226,9 +226,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "CrouchSlide",
+                    "name": "Crouch",
                     "type": "Button",
                     "id": "19d61763-90d3-4d0b-8466-ef53fa615048",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Slide",
+                    "type": "Button",
+                    "id": "5b3ea953-5f78-49c6-9bf6-93230eec509b",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -287,7 +296,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard and Mouse",
-                    "action": "CrouchSlide",
+                    "action": "Crouch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -298,7 +307,29 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Controller",
-                    "action": "CrouchSlide",
+                    "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6d12956e-7ca5-4bd0-95a2-7c94b02795a2",
+                    "path": "<Keyboard>/leftCtrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
+                    "action": "Slide",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4a6744cc-d16a-4fb2-aa0a-90690d8d6ef9",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Slide",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

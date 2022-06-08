@@ -108,7 +108,7 @@ public class WallRunningAdvanced : MonoBehaviour
             }
 
             // wall jump
-            //if (inputManager.jump_Input) WallJump();
+            if (inputManager.jump_Input) WallJump();
         }
 
         // State 2 - Exiting

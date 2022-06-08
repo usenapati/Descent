@@ -42,10 +42,10 @@ public class Sliding : MonoBehaviour
         horizontalInput = inputManager.horizontalInput;
         verticalInput = inputManager.verticalInput;
 
-        if (inputManager.crouch_slide_Input && (horizontalInput != 0 || verticalInput != 0))
+        if (inputManager.slide_Input && (horizontalInput != 0 || verticalInput != 0))
             StartSlide();
 
-        if (!inputManager.crouch_slide_Input && pm.sliding)
+        if (!inputManager.slide_Input && pm.sliding)
             StopSlide();
     }
 

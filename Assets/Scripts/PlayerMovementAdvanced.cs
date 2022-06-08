@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Dave.PhysicsExtension;
 using TMPro;
 
 public class PlayerMovementAdvanced : MonoBehaviour
@@ -11,14 +12,15 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     [Header("Movement")]
     private float moveSpeed;
-    private float desiredMoveSpeed;
-    private float lastDesiredMoveSpeed;
     public float walkSpeed;
     public float sprintSpeed;
     public float slideSpeed;
     public float wallrunSpeed;
     public float rotationSpeed = 15;
 
+    private float desiredMoveSpeed;
+    private float lastDesiredMoveSpeed;
+    
     public float speedIncreaseMultiplier;
     public float slopeIncreaseMultiplier;
 
@@ -32,18 +34,16 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     [Header("Crouching")]
     public float crouchSpeed;
-    public float crouchYScale;
-    private float startYScale;
+    public float crouchYHeight;
+    private float startYHeight;
 
-    //[Header("Keybinds")]
-    //public KeyCode jumpKey = KeyCode.Space;
-    //public KeyCode sprintKey = KeyCode.LeftShift;
-    //public KeyCode crouchKey = KeyCode.LeftControl;
+    [Header("Sliding")]
+    bool readyToSlide;
 
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask whatIsGround;
-    bool grounded;
+    public bool grounded;
 
     [Header("Slope Handling")]
     public float maxSlopeAngle;
@@ -53,6 +53,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     public Transform orientation;
     Transform cameraObject;
+    public CapsuleCollider collider;
 
     float horizontalInput;
     float verticalInput;
@@ -64,6 +65,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public MovementState state;
     public enum MovementState
     {
+        restricted,
         walking,
         sprinting,
         wallrunning,
@@ -72,6 +74,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
         air
     }
 
+    public bool restricted; // no wasd movement
     public bool sliding;
     public bool crouching;
     public bool wallrunning;
@@ -91,21 +94,20 @@ public class PlayerMovementAdvanced : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-
+        collider = GetComponent<CapsuleCollider>();
         readyToJump = true;
 
-        startYScale = transform.localScale.y;
+        startYHeight = collider.height;
     }
 
     private void Update()
     {
-        inputManager.HandleAllInputs();
+        //inputManager.HandleAllInputs();
 
         // ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
 
         MyInput();
-        HandleRotation();
         SpeedControl();
         StateHandler();
         TextStuff();
@@ -119,7 +121,9 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     private void FixedUpdate()
     {
-        MovePlayer();
+        if (state != MovementState.restricted)
+            MovePlayer();
+            HandleRotation();
     }
 
     private void MyInput()
@@ -138,18 +142,18 @@ public class PlayerMovementAdvanced : MonoBehaviour
         }
 
         // start crouch
-        if (inputManager.crouch_slide_Input && horizontalInput == 0 && verticalInput == 0)
+        if (inputManager.crouch_Input && horizontalInput == 0 && verticalInput == 0)
         {
-            transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
+            collider.height = crouchYHeight;
             rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
 
             crouching = true;
         }
 
         // stop crouch
-        if (!inputManager.crouch_slide_Input)
+        if (!inputManager.crouch_Input)
         {
-            transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
+            collider.height = startYHeight;
 
             crouching = false;
         }
@@ -157,9 +161,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     private void HandleRotation()
     {
-        if (inputManager.jump_Input)
-            return;
-
         Vector3 targetDirection = Vector3.zero;
 
         targetDirection = cameraObject.forward * inputManager.verticalInput;
@@ -178,8 +179,14 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     private void StateHandler()
     {
+        // Mode - Restricted (no input)
+        if (restricted)
+        {
+            state = MovementState.restricted;
+        }
+
         // Mode - Wallrunning
-        if (wallrunning)
+        else if (wallrunning)
         {
             state = MovementState.wallrunning;
             desiredMoveSpeed = wallrunSpeed;
@@ -199,7 +206,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
         }
 
         // Mode - Crouching
-        else if (crouching)
+        else if (inputManager.crouch_Input)
         {
             state = MovementState.crouching;
             desiredMoveSpeed = crouchSpeed;
@@ -293,7 +300,8 @@ public class PlayerMovementAdvanced : MonoBehaviour
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
 
         // turn gravity off while on slope
-        if(!wallrunning) rb.useGravity = !OnSlope();
+        //if(!wallrunning) rb.useGravity = !OnSlope();
+        rb.useGravity = !OnSlope();
     }
 
     private void SpeedControl()
@@ -319,6 +327,8 @@ public class PlayerMovementAdvanced : MonoBehaviour
         }
     }
 
+    public Transform markerSphere;
+    public float maxJumpHeight;
     private void Jump()
     {
         exitingSlope = true;
@@ -327,6 +337,8 @@ public class PlayerMovementAdvanced : MonoBehaviour
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        // precision please
+        //rb.velocity = PhysicsExtension.CalculateJumpVelocity(transform.position, markerSphere.position, maxJumpHeight);
     }
     private void ResetJump()
     {
@@ -334,6 +346,8 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
         exitingSlope = false;
     }
+
+    
 
     public bool OnSlope()
     {

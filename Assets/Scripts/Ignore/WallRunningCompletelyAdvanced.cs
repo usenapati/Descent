@@ -316,8 +316,8 @@ public class WallRunningCompletelyAdvanced : MonoBehaviour
 
     public void WallJump()
     {
-        AdvancedWallJump();
-        return;
+        //AdvancedWallJump();
+        //return;
 
         // idea: allow one full jump, the second one is without upward force
 

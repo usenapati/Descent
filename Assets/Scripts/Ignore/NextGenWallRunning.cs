@@ -17,10 +17,6 @@ public class NextGenWallRunning : MonoBehaviour
     public float wallClimbSpeed;
     private float wallRunTimer;
 
-    [Header("Input")]
-    public KeyCode jumpKey = KeyCode.Space;
-    public KeyCode upwardsRunKey = KeyCode.LeftShift;
-    public KeyCode downwardsRunKey = KeyCode.LeftControl;
     private bool upwardsRunning;
     private bool downwardsRunning;
     private float horizontalInput;
@@ -48,8 +44,11 @@ public class NextGenWallRunning : MonoBehaviour
 
     [Header("References")]
     public Transform orientation;
-    private PlayerMovementAdvancedFinished pm;
+    private PlayerMovementAdvanced pm;
+    private InputManager inputManager;
+    public CameraManager cameraManager;
     private Rigidbody rb;
+
     /// private PlayerCam cam;
 
     private RaycastHit leftWallHit;
@@ -63,6 +62,16 @@ public class NextGenWallRunning : MonoBehaviour
 
     private int wallJumpsDone;
 
+    public Camera cam;
+    public Transform camPivot;
+
+    public Transform markerSphere;
+    public Transform someSecondSphere;
+
+    public float maxJumpRange;
+    public float maxJumpHeight;
+
+    public TextMeshProUGUI text_predictionState;
 
     public TextMeshProUGUI text_wallState;
 
@@ -75,8 +84,10 @@ public class NextGenWallRunning : MonoBehaviour
             whatIsGround = LayerMask.GetMask("Default");
 
         rb = GetComponent<Rigidbody>();
-        pm = GetComponent<PlayerMovementAdvancedFinished>();
-        /// cam = GetComponent<PlayerCam>();
+        pm = GetComponent<PlayerMovementAdvanced>();
+        inputManager = GetComponent<InputManager>();
+        cameraManager = FindObjectOfType<CameraManager>();
+        cam = Camera.main;
     }
 
     private void Update()
@@ -99,11 +110,11 @@ public class NextGenWallRunning : MonoBehaviour
     private void StateMachine()
     {
         // Getting Inputs
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
+        horizontalInput = inputManager.horizontalInput;
+        verticalInput = inputManager.verticalInput;
 
-        upwardsRunning = Input.GetKey(upwardsRunKey);
-        downwardsRunning = Input.GetKey(downwardsRunKey);
+        upwardsRunning = inputManager.upward_run_Input;
+        downwardsRunning = inputManager.downward_run_Input;
 
         // State 1 - Wallrunning
         if ((wallLeft || wallRight) && verticalInput > 0 && AboveGround() && !exitingWall)
@@ -127,7 +138,7 @@ public class NextGenWallRunning : MonoBehaviour
             }
 
             // wall jump
-            if (Input.GetKeyDown(jumpKey)) WallJump();
+            if (inputManager.jump_Input) WallJump();
         }
 
         // State 2 - Exiting (Here)
@@ -161,6 +172,9 @@ public class NextGenWallRunning : MonoBehaviour
     {
         wallRight = Physics.Raycast(transform.position, orientation.right, out rightWallHit, wallCheckDistance, whatIsWall);
         wallLeft = Physics.Raycast(transform.position, -orientation.right, out leftWallHit, wallCheckDistance, whatIsWall);
+
+        //Debug.DrawRay(transform.position, orientation.right, Color.red, wallCheckDistance, false);
+        //Debug.DrawRay(transform.position, -orientation.right, Color.green, wallCheckDistance, false);
 
         // reset readyToClimb and wallJumps whenever player hits a new wall
         if ((wallLeft || wallRight) && NewWallHit())
@@ -209,10 +223,10 @@ public class NextGenWallRunning : MonoBehaviour
 
         wallRemembered = false;
 
-        // fov and cam tilt in full file
-        /// cam.DoFov(100f);
-        /// if(wallRight) cam.DoTilt(5f);
-        /// if(wallLeft) cam.DoTilt(-5f);
+        // apply camera effects
+        cameraManager.DoFov(90f);
+        if (wallLeft) cameraManager.DoTilt(-10f);
+        if (wallRight) cameraManager.DoTilt(10f);
     }
 
     private void WallRunningMovement()
@@ -277,8 +291,8 @@ public class NextGenWallRunning : MonoBehaviour
 
         pm.wallrunning = false;
 
-        /// cam.ResetFov();
-        /// cam.ResetTilt();
+        cameraManager.DoFov(80f);
+        cameraManager.DoTilt(0f);
     }
 
     public void WallJump()
@@ -315,22 +329,13 @@ public class NextGenWallRunning : MonoBehaviour
         print(1);
     }
 
-    public Camera cam;
-    public Transform camHolder;
-
-    public Transform markerSphere;
-    public Transform someSecondSphere;
-
-    public float maxJumpRange;
-    public float maxJumpHeight;
-
-    public TextMeshProUGUI text_predictionState;
+    
 
     private void JumpPrediction()
     {
         RaycastHit viewRayHit;
 
-        if (Physics.Raycast(cam.transform.position, camHolder.forward, out viewRayHit, maxJumpRange, whatIsWall))
+        if (Physics.Raycast(cam.transform.position, cameraManager.transform.forward, out viewRayHit, maxJumpRange, whatIsWall))
         {
             // Case 1 - raycast hits (in maxDistance)
             markerSphere.position = viewRayHit.point;
@@ -338,12 +343,12 @@ public class NextGenWallRunning : MonoBehaviour
             text_predictionState.SetText("in distance");
         }
 
-        else if (Physics.SphereCast(cam.transform.position, 1f, camHolder.forward, out viewRayHit, 10f, whatIsWall))
+        else if (Physics.SphereCast(cam.transform.position, 1f, cameraManager.transform.forward, out viewRayHit, 10f, whatIsWall))
         {
             // Case 2 - raycast hits (out of maxDistance)
 
             // calculate nearest possible point
-            Vector3 maxRangePoint = cam.transform.position + camHolder.forward * maxJumpRange;
+            Vector3 maxRangePoint = cam.transform.position + cameraManager.transform.forward * maxJumpRange;
 
             RaycastHit wallHit;
             if(Physics.Raycast(maxRangePoint, -viewRayHit.normal, out wallHit, 4f, whatIsWall))
@@ -363,7 +368,7 @@ public class NextGenWallRunning : MonoBehaviour
                 else
                 {
                     text_predictionState.SetText("out of distance, can't predict point..."); // -> same as case 3
-                    markerSphere.position = cam.transform.position + camHolder.forward * maxJumpRange;
+                    markerSphere.position = cam.transform.position + cameraManager.transform.forward * maxJumpRange;
                 }
             }
         }
@@ -373,12 +378,12 @@ public class NextGenWallRunning : MonoBehaviour
             // Case 3 - raycast completely misses
             // -> Normal Jump
             // Gizmos.DrawWireSphere(cam.transform.position + camHolder.forward * maxJumpRange, .5f);
-            markerSphere.position = cam.transform.position + camHolder.forward * maxJumpRange;
+            markerSphere.position = cam.transform.position + cameraManager.transform.forward * maxJumpRange;
             text_predictionState.SetText("complete miss");
         }
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawRay(transform.position, orientation.right * wallCheckDistance);
