@@ -617,6 +617,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_PlayerActions_Jump;
         public InputAction @Crouch => m_Wrapper.m_PlayerActions_Crouch;
         public InputAction @Slide => m_Wrapper.m_PlayerActions_Slide;
+        public InputAction @Glide => m_Wrapper.m_PlayerActions_Glide;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }

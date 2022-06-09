@@ -9212,6 +9212,33 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &271256102 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 656534244289873938, guid: bd56eb23ab1b0d24f957485ec4bab0bc,
+    type: 3}
+  m_PrefabInstance: {fileID: 656534244814192079}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &271256114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271256102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1f3bdd9919a4184196786276bd536b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraManager: {fileID: 0}
+  rot: {x: 0, y: 0, z: 0}
+  lowSpeed: 12.5
+  highSpeed: 13.8
+  maxDrag: 6
+  minDrag: 2
+  minAngle: 0
+  maxAngle: 45
+  percentage: 0
 --- !u!43 &273761097
 Mesh:
   m_ObjectHideFlags: 0
@@ -51358,12 +51385,12 @@ PrefabInstance:
     - target: {fileID: 656534244289873937, guid: bd56eb23ab1b0d24f957485ec4bab0bc,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 16.5
+      value: 2.32
       objectReference: {fileID: 0}
     - target: {fileID: 656534244289873937, guid: bd56eb23ab1b0d24f957485ec4bab0bc,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.062
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 656534244289873937, guid: bd56eb23ab1b0d24f957485ec4bab0bc,
         type: 3}
@@ -51425,11 +51452,6 @@ PrefabInstance:
       propertyPath: whatIsGround.m_Bits
       value: 1024
       objectReference: {fileID: 0}
-    - target: {fileID: 656534244289873966, guid: bd56eb23ab1b0d24f957485ec4bab0bc,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1051242068934167914, guid: bd56eb23ab1b0d24f957485ec4bab0bc,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -51440,8 +51462,7 @@ PrefabInstance:
       propertyPath: text_predictionState
       value: 
       objectReference: {fileID: 1817128475}
-    m_RemovedComponents:
-    - {fileID: 656534244289873966, guid: bd56eb23ab1b0d24f957485ec4bab0bc, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd56eb23ab1b0d24f957485ec4bab0bc, type: 3}
 --- !u!4 &798848567540569577 stripped
 Transform:
