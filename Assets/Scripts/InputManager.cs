@@ -19,6 +19,7 @@ public class InputManager : MonoBehaviour
     public float verticalInput;
     public float horizontalInput;
 
+    public bool glide_Input;
     public bool sprint_Input;
     public bool jump_Input;
     public bool crouch_Input;
@@ -41,6 +42,8 @@ public class InputManager : MonoBehaviour
 
             playerControls.PlayerMovement.Movement.performed += i => movementInput = i.ReadValue<Vector2>();
             playerControls.PlayerMovement.Camera.performed += i => cameraInput = i.ReadValue<Vector2>();
+
+            playerControls.PlayerActions.Glide.performed += i => glide_Input = !glide_Input;
 
             playerControls.PlayerActions.Sprint.performed += i => sprint_Input = true;
             playerControls.PlayerActions.Sprint.canceled += i => sprint_Input = false;
@@ -74,6 +77,7 @@ public class InputManager : MonoBehaviour
         //HandleJumpingInput();
         //HandleCrouchingSlidingInput();
     }
+    
 
     private void HandleMovementInput()
     {

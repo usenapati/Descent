@@ -312,7 +312,6 @@ GameObject:
   - component: {fileID: 7163201867941560533}
   - component: {fileID: 1283365655}
   - component: {fileID: 656534244289873964}
-  - component: {fileID: 656534244289873966}
   - component: {fileID: 9017481891220529040}
   - component: {fileID: 5734084885480816730}
   - component: {fileID: 1283365646}
@@ -415,7 +414,7 @@ MonoBehaviour:
   jumpCooldown: 0.25
   airMultiplier: 0.4
   crouchSpeed: 3.5
-  crouchYScale: 0.5
+  crouchYHeight: 0
   playerHeight: 2
   whatIsGround:
     serializedVersion: 2
@@ -429,6 +428,7 @@ MonoBehaviour:
   sliding: 0
   crouching: 0
   wallrunning: 0
+  air: 0
   text_speed: {fileID: 0}
   text_mode: {fileID: 0}
   markerSphere: {fileID: 6183562378147832783}
@@ -492,7 +492,10 @@ MonoBehaviour:
   playerObj: {fileID: 377449626556085519}
   maxSlideTime: 2
   slideForce: 200
-  slideYScale: 0.5
+  slideTimer: 0
+  slideYHeight: 0.5
+  readyToSlide: 0
+  slideCooldown: 0
 --- !u!114 &656534244289873964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -523,23 +526,6 @@ MonoBehaviour:
   gravityCounterForce: 20
   orientation: {fileID: 656534243595770484}
   cameraManager: {fileID: 0}
---- !u!114 &656534244289873966
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 656534244289873938}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1fe65e6962f75c49b933f88cea75693, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  orientation: {fileID: 656534243595770484}
-  playerObj: {fileID: 656534244289873937}
-  maxSlideTime: 2
-  slideForce: 200
-  slideYScale: 0.5
 --- !u!114 &9017481891220529040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -585,6 +571,7 @@ MonoBehaviour:
   moveAmount: 0
   verticalInput: 0
   horizontalInput: 0
+  glide_Input: 0
   sprint_Input: 0
   jump_Input: 0
   crouch_Input: 0

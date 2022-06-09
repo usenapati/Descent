@@ -78,6 +78,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public bool sliding;
     public bool crouching;
     public bool wallrunning;
+    public bool air;
 
     public TextMeshProUGUI text_speed;
     public TextMeshProUGUI text_mode;
@@ -230,6 +231,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
         else
         {
             state = MovementState.air;
+            air = true;
         }
 
         // check if desired move speed has changed drastically
