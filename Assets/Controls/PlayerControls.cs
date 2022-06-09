@@ -264,6 +264,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Glide"",
+                    ""type"": ""Button"",
+                    ""id"": ""862cd1c3-5525-44ef-89b3-51b48bbb9561"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -352,6 +361,28 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Controller"",
                     ""action"": ""Slide"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aa69d6f3-7120-4465-9406-66337122caec"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Glide"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b27c97b2-1717-4078-8d7b-c7d4a30fef43"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Glide"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -468,6 +499,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_PlayerActions_Jump = m_PlayerActions.FindAction("Jump", throwIfNotFound: true);
         m_PlayerActions_Crouch = m_PlayerActions.FindAction("Crouch", throwIfNotFound: true);
         m_PlayerActions_Slide = m_PlayerActions.FindAction("Slide", throwIfNotFound: true);
+        m_PlayerActions_Glide = m_PlayerActions.FindAction("Glide", throwIfNotFound: true);
         // Wallrunning
         m_Wallrunning = asset.FindActionMap("Wallrunning", throwIfNotFound: true);
         m_Wallrunning_UpwardsRun = m_Wallrunning.FindAction("UpwardsRun", throwIfNotFound: true);
@@ -576,6 +608,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerActions_Jump;
     private readonly InputAction m_PlayerActions_Crouch;
     private readonly InputAction m_PlayerActions_Slide;
+    private readonly InputAction m_PlayerActions_Glide;
     public struct PlayerActionsActions
     {
         private @PlayerControls m_Wrapper;
@@ -605,6 +638,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Slide.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnSlide;
                 @Slide.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnSlide;
                 @Slide.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnSlide;
+                @Glide.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnGlide;
+                @Glide.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnGlide;
+                @Glide.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnGlide;
             }
             m_Wrapper.m_PlayerActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -621,6 +657,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Slide.started += instance.OnSlide;
                 @Slide.performed += instance.OnSlide;
                 @Slide.canceled += instance.OnSlide;
+                @Glide.started += instance.OnGlide;
+                @Glide.performed += instance.OnGlide;
+                @Glide.canceled += instance.OnGlide;
             }
         }
     }
@@ -695,6 +734,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
         void OnSlide(InputAction.CallbackContext context);
+        void OnGlide(InputAction.CallbackContext context);
     }
     public interface IWallrunningActions
     {
