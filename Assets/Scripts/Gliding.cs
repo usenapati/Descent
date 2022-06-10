@@ -102,6 +102,13 @@ public class Gliding : MonoBehaviour
             // Update drag to the modified one
             rb.drag = mod_drag;
         }
+        else if(!AboveGround())
+        {
+            inputManager.glide_Input = false;
+            pm.enabled = true;
+            wr.enabled = true;
+            sliding.enabled = true;
+        }
         else if (!inputManager.glide_Input)
         {
             // Enable Movement
