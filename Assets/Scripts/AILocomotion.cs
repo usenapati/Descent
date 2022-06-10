@@ -118,10 +118,10 @@ public class AILocomotion : MonoBehaviour
 
             rb.AddForce(transform.forward * 32.0f, ForceMode.Impulse);
             //rb.AddForce(transform.up * 8.0f, ForceMode.Impulse);
-            
+            Destroy(p, 0.75f);
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
-            Destroy(p, 2.0f);
+            
         }
     }
 
