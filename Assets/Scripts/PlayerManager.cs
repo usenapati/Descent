@@ -11,6 +11,7 @@ public class PlayerManager : MonoBehaviour
     PlayerMovementAdvanced playerMovement;
 
     public bool isInteracting;
+    public float health;
 
     private void Awake()
     {
@@ -49,5 +50,20 @@ public class PlayerManager : MonoBehaviour
             animator.SetBool("IsGrounded", true);
         }
         
+    }
+
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            Invoke(nameof(DestroyPlayer), 0.5f);
+        }
+    }
+
+    private void DestroyPlayer()
+    {
+        //Destroy(gameObject);
+        // Game Over Screen
     }
 }
