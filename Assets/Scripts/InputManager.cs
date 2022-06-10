@@ -27,6 +27,7 @@ public class InputManager : MonoBehaviour
     public bool slide_Input;
     public bool upward_run_Input;
     public bool downward_run_Input;
+    public bool aim_Input;
 
     public PlayerInput playerInput;
     public string currentInput;
@@ -65,6 +66,9 @@ public class InputManager : MonoBehaviour
             playerControls.Wallrunning.UpwardsRun.canceled += i => upward_run_Input = false;
             playerControls.Wallrunning.DownwardsRun.performed += i => downward_run_Input = true;
             playerControls.Wallrunning.DownwardsRun.canceled += i => downward_run_Input = false;
+
+            playerControls.PlayerActions.Aim.performed += i => aim_Input = true;
+            playerControls.PlayerActions.Aim.canceled += i => aim_Input = false;
 
             playerInput = FindObjectOfType<PlayerInput>();
         }
