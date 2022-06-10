@@ -225,8 +225,8 @@ public class NextGenWallRunning : MonoBehaviour
 
         // apply camera effects
         cameraManager.DoFov(90f);
-        if (wallLeft) cameraManager.DoTilt(-10f);
-        if (wallRight) cameraManager.DoTilt(10f);
+        if (wallLeft) cameraManager.DoTilt(7f);
+        if (wallRight) cameraManager.DoTilt(-7f);
     }
 
     private void WallRunningMovement()
