@@ -51,6 +51,8 @@ public class Gliding : MonoBehaviour
         cameraManager = FindObjectOfType<CameraManager>();
         rb = GetComponent<Rigidbody>();
         pm = GetComponent<PlayerMovementAdvanced>();
+        wr = GetComponent<NextGenWallRunning>();
+        sliding = GetComponent<SlidingDone>();
         // Make sure the player has a Rigidbody component
         rb = GetComponent<Rigidbody>();
         // Setting rotation variable to the current angles

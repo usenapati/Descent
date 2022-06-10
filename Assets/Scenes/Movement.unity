@@ -22241,6 +22241,24 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!1 &747795509 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2729814350850981341, guid: ecb6405992beeae4681c1bc067f9649a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1922530647}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &747795510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 747795509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54f3f42b274576541acab9608967c1a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &753930972
 GameObject:
   m_ObjectHideFlags: 0
@@ -50108,7 +50126,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1934937155}
-  m_LocalRotation: {x: 0.20075649, y: -0.6793073, z: 0.20160215, w: 0.6764577}
+  m_LocalRotation: {x: 0.20075649, y: -0.6793073, z: 0.20160218, w: 0.6764577}
   m_LocalPosition: {x: 2.2147899, y: 1.284996, z: 2.135065}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
