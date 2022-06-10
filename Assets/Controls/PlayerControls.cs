@@ -488,6 +488,133 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Gliding"",
+            ""id"": ""01c6609f-0989-4558-9184-8630da96d018"",
+            ""actions"": [
+                {
+                    ""name"": ""Movement"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""6c956a85-53b3-46fe-a376-e9a75d105dc4"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""WASD"",
+                    ""id"": ""171b21f4-2526-4310-bb97-0552062ced09"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""46668350-2d97-4b30-a099-e8f6475589d6"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""f22e23d2-f54d-4fee-9587-07f4574db016"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""437b09fd-9713-4d15-aa60-c3b679c2c98d"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""ecd8eb4c-a611-40c5-99cb-25d364388eb4"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Controller"",
+                    ""id"": ""e7acb645-f6c1-4237-9835-06987d597aa2"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""397b2380-1bfd-4f65-ba69-1aaf166ac893"",
+                    ""path"": ""<Gamepad>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""ce2bc6fc-4c3f-4350-a34b-58a6d946252a"",
+                    ""path"": ""<Gamepad>/leftStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""21834616-f603-4770-a694-5e2ccccdfe0d"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""9c7651bf-5e82-4637-b66c-98616d528104"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -536,6 +663,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Wallrunning = asset.FindActionMap("Wallrunning", throwIfNotFound: true);
         m_Wallrunning_UpwardsRun = m_Wallrunning.FindAction("UpwardsRun", throwIfNotFound: true);
         m_Wallrunning_DownwardsRun = m_Wallrunning.FindAction("DownwardsRun", throwIfNotFound: true);
+        // Gliding
+        m_Gliding = asset.FindActionMap("Gliding", throwIfNotFound: true);
+        m_Gliding_Movement = m_Gliding.FindAction("Movement", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -746,6 +876,39 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         }
     }
     public WallrunningActions @Wallrunning => new WallrunningActions(this);
+
+    // Gliding
+    private readonly InputActionMap m_Gliding;
+    private IGlidingActions m_GlidingActionsCallbackInterface;
+    private readonly InputAction m_Gliding_Movement;
+    public struct GlidingActions
+    {
+        private @PlayerControls m_Wrapper;
+        public GlidingActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Movement => m_Wrapper.m_Gliding_Movement;
+        public InputActionMap Get() { return m_Wrapper.m_Gliding; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(GlidingActions set) { return set.Get(); }
+        public void SetCallbacks(IGlidingActions instance)
+        {
+            if (m_Wrapper.m_GlidingActionsCallbackInterface != null)
+            {
+                @Movement.started -= m_Wrapper.m_GlidingActionsCallbackInterface.OnMovement;
+                @Movement.performed -= m_Wrapper.m_GlidingActionsCallbackInterface.OnMovement;
+                @Movement.canceled -= m_Wrapper.m_GlidingActionsCallbackInterface.OnMovement;
+            }
+            m_Wrapper.m_GlidingActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Movement.started += instance.OnMovement;
+                @Movement.performed += instance.OnMovement;
+                @Movement.canceled += instance.OnMovement;
+            }
+        }
+    }
+    public GlidingActions @Gliding => new GlidingActions(this);
     private int m_KeyboardandMouseSchemeIndex = -1;
     public InputControlScheme KeyboardandMouseScheme
     {
@@ -782,5 +945,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     {
         void OnUpwardsRun(InputAction.CallbackContext context);
         void OnDownwardsRun(InputAction.CallbackContext context);
+    }
+    public interface IGlidingActions
+    {
+        void OnMovement(InputAction.CallbackContext context);
     }
 }

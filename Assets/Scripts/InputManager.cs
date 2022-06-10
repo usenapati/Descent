@@ -12,6 +12,7 @@ public class InputManager : MonoBehaviour
 
     public Vector2 movementInput;
     public Vector2 cameraInput;
+    public Vector2 glidingInput;
 
     public float cameraInputX;
     public float cameraInputY;
@@ -27,6 +28,7 @@ public class InputManager : MonoBehaviour
     public bool slide_Input;
     public bool upward_run_Input;
     public bool downward_run_Input;
+
 
     public PlayerInput playerInput;
     public string currentInput;
@@ -65,6 +67,9 @@ public class InputManager : MonoBehaviour
             playerControls.Wallrunning.UpwardsRun.canceled += i => upward_run_Input = false;
             playerControls.Wallrunning.DownwardsRun.performed += i => downward_run_Input = true;
             playerControls.Wallrunning.DownwardsRun.canceled += i => downward_run_Input = false;
+
+            playerControls.Gliding.Movement.performed += i => glidingInput = i.ReadValue<Vector2>();
+
 
             playerInput = FindObjectOfType<PlayerInput>();
         }
