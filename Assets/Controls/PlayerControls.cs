@@ -273,6 +273,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Aim"",
+                    ""type"": ""Button"",
+                    ""id"": ""b7fe781f-3d54-480b-b9d0-591009b09357"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -370,7 +379,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard and Mouse"",
                     ""action"": ""Glide"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -381,8 +390,30 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Controller"",
                     ""action"": ""Glide"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""997265cc-587d-415e-a1d0-76dcbf9ab153"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f538308d-c8cf-4756-b8fc-ec04291e098b"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Aim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -500,6 +531,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_PlayerActions_Crouch = m_PlayerActions.FindAction("Crouch", throwIfNotFound: true);
         m_PlayerActions_Slide = m_PlayerActions.FindAction("Slide", throwIfNotFound: true);
         m_PlayerActions_Glide = m_PlayerActions.FindAction("Glide", throwIfNotFound: true);
+        m_PlayerActions_Aim = m_PlayerActions.FindAction("Aim", throwIfNotFound: true);
         // Wallrunning
         m_Wallrunning = asset.FindActionMap("Wallrunning", throwIfNotFound: true);
         m_Wallrunning_UpwardsRun = m_Wallrunning.FindAction("UpwardsRun", throwIfNotFound: true);
@@ -609,6 +641,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerActions_Crouch;
     private readonly InputAction m_PlayerActions_Slide;
     private readonly InputAction m_PlayerActions_Glide;
+    private readonly InputAction m_PlayerActions_Aim;
     public struct PlayerActionsActions
     {
         private @PlayerControls m_Wrapper;
@@ -618,6 +651,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Crouch => m_Wrapper.m_PlayerActions_Crouch;
         public InputAction @Slide => m_Wrapper.m_PlayerActions_Slide;
         public InputAction @Glide => m_Wrapper.m_PlayerActions_Glide;
+        public InputAction @Aim => m_Wrapper.m_PlayerActions_Aim;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -642,6 +676,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Glide.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnGlide;
                 @Glide.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnGlide;
                 @Glide.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnGlide;
+                @Aim.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnAim;
+                @Aim.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnAim;
+                @Aim.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnAim;
             }
             m_Wrapper.m_PlayerActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -661,6 +698,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Glide.started += instance.OnGlide;
                 @Glide.performed += instance.OnGlide;
                 @Glide.canceled += instance.OnGlide;
+                @Aim.started += instance.OnAim;
+                @Aim.performed += instance.OnAim;
+                @Aim.canceled += instance.OnAim;
             }
         }
     }
@@ -736,6 +776,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnCrouch(InputAction.CallbackContext context);
         void OnSlide(InputAction.CallbackContext context);
         void OnGlide(InputAction.CallbackContext context);
+        void OnAim(InputAction.CallbackContext context);
     }
     public interface IWallrunningActions
     {

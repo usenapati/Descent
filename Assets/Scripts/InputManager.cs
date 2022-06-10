@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
@@ -26,6 +27,9 @@ public class InputManager : MonoBehaviour
     public bool slide_Input;
     public bool upward_run_Input;
     public bool downward_run_Input;
+
+    public PlayerInput playerInput;
+    public string currentInput;
 
     private void Awake()
     {
@@ -58,8 +62,11 @@ public class InputManager : MonoBehaviour
             playerControls.PlayerActions.Slide.canceled += i => slide_Input = false;
 
             playerControls.Wallrunning.UpwardsRun.performed += i => upward_run_Input = true;
+            playerControls.Wallrunning.UpwardsRun.canceled += i => upward_run_Input = false;
             playerControls.Wallrunning.DownwardsRun.performed += i => downward_run_Input = true;
+            playerControls.Wallrunning.DownwardsRun.canceled += i => downward_run_Input = false;
 
+            playerInput = FindObjectOfType<PlayerInput>();
         }
 
         playerControls.Enable();
@@ -73,11 +80,20 @@ public class InputManager : MonoBehaviour
     public void HandleAllInputs()
     {
         HandleMovementInput();
+        HandleCurrentScheme();
         //HandleSprintingInput();
         //HandleJumpingInput();
         //HandleCrouchingSlidingInput();
     }
     
+    private void HandleCurrentScheme() {
+        if (playerInput.currentControlScheme != null)
+        {
+            currentInput = playerInput.currentControlScheme;
+        }
+        
+    }
+
 
     private void HandleMovementInput()
     {
