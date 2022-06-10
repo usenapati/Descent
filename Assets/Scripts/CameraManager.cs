@@ -20,12 +20,21 @@ public class CameraManager : MonoBehaviour
     public bool isAiming;
     public bool onController;
 
+    [Header("Camera Follow Sensitivity")]
     // Mouse Sensitivity
-    public float mouseXSensitivity = 0.06f;
-    public float mouseYSensitivity = 0.16f;
+    public float mouseXFollowSensitivity = 0.06f;
+    public float mouseYFollowSensitivity = 0.16f;
     // Controller Sensistivity
-    public float controllerXSensitivity = 3f;
-    public float controllerYSensitivity = 1f;
+    public float controllerXFollowSensitivity = 3f;
+    public float controllerYFollowSensitivity = 1f;
+
+    [Header("Camera Aim Sensitivity")]
+    // Mouse Sensitivity
+    public float mouseXAimSensitivity = 0.06f;
+    public float mouseYAimSensitivity = 0.16f;
+    // Controller Sensistivity
+    public float controllerXAimSensitivity = 3f;
+    public float controllerYAimSensitivity = 1f;
 
     private void Start()
     {
@@ -54,12 +63,21 @@ public class CameraManager : MonoBehaviour
         if (isAiming)
         {
             currentCamera.Priority = 9;
+            cameraFollow.enabled = false;
+            cameraAim.enabled = true;
+            //cameraFollow.gameObject.SetActive(false);
+            //cameraAim.gameObject.SetActive(true);
             currentCamera = cameraAim;
             currentCamera.Priority = 10;
         }
         else
         {
+
             currentCamera.Priority = 9;
+            cameraAim.enabled = false;
+            cameraFollow.enabled = true;
+            //cameraAim.gameObject.SetActive(false);
+            //cameraFollow.gameObject.SetActive(true);
             currentCamera = cameraFollow;
             currentCamera.Priority = 10;
         }
@@ -81,13 +99,13 @@ public class CameraManager : MonoBehaviour
     {
         if (onController)
         {
-            cameraFollow.GetCinemachineComponent<CinemachinePOV>().m_HorizontalAxis.m_MaxSpeed = controllerXSensitivity;
-            cameraFollow.GetCinemachineComponent<CinemachinePOV>().m_VerticalAxis.m_MaxSpeed = controllerYSensitivity;
+            cameraFollow.GetCinemachineComponent<CinemachinePOV>().m_HorizontalAxis.m_MaxSpeed = controllerXFollowSensitivity;
+            cameraFollow.GetCinemachineComponent<CinemachinePOV>().m_VerticalAxis.m_MaxSpeed = controllerYFollowSensitivity;
         }
         else
         {
-            cameraFollow.GetCinemachineComponent<CinemachinePOV>().m_HorizontalAxis.m_MaxSpeed = mouseXSensitivity;
-            cameraFollow.GetCinemachineComponent<CinemachinePOV>().m_VerticalAxis.m_MaxSpeed = mouseYSensitivity;
+            cameraFollow.GetCinemachineComponent<CinemachinePOV>().m_HorizontalAxis.m_MaxSpeed = mouseXFollowSensitivity;
+            cameraFollow.GetCinemachineComponent<CinemachinePOV>().m_VerticalAxis.m_MaxSpeed = mouseYFollowSensitivity;
         }
     }
 

@@ -29,6 +29,7 @@ public class InputManager : MonoBehaviour
     public bool upward_run_Input;
     public bool downward_run_Input;
     public bool aim_Input;
+    public bool shoot_Input;
 
 
     public PlayerInput playerInput;
@@ -72,6 +73,9 @@ public class InputManager : MonoBehaviour
             playerControls.PlayerActions.Aim.performed += i => aim_Input = true;
             playerControls.PlayerActions.Aim.canceled += i => aim_Input = false;
 
+            playerControls.PlayerActions.Shoot.performed += i => shoot_Input = true;
+            playerControls.PlayerActions.Shoot.canceled += i => shoot_Input = false;
+
             playerControls.Gliding.Movement.performed += i => glidingInput = i.ReadValue<Vector2>();
             playerInput = FindObjectOfType<PlayerInput>();
         }
@@ -111,7 +115,7 @@ public class InputManager : MonoBehaviour
         cameraInputY = cameraInput.y;
 
         moveAmount = Mathf.Clamp01(Mathf.Abs(horizontalInput) + Mathf.Abs(verticalInput));
-        if (playerMovement.state == PlayerMovementAdvanced.MovementState.sprinting)
+        if (playerMovement.state == PlayerMovementAdvanced.MovementState.sprinting && (verticalInput != 0 || horizontalInput != 0))
         {
             animatorManager.UpdateAnimatorValues(0, moveAmount, true);
         }

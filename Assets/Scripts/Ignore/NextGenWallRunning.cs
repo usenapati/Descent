@@ -48,6 +48,7 @@ public class NextGenWallRunning : MonoBehaviour
     private InputManager inputManager;
     public CameraManager cameraManager;
     private Rigidbody rb;
+    private PlayerShooting playerShooting;
 
     /// private PlayerCam cam;
 
@@ -87,6 +88,7 @@ public class NextGenWallRunning : MonoBehaviour
         pm = GetComponent<PlayerMovementAdvanced>();
         inputManager = GetComponent<InputManager>();
         cameraManager = FindObjectOfType<CameraManager>();
+        playerShooting = GetComponent<PlayerShooting>();
         cam = Camera.main;
     }
 
@@ -223,6 +225,9 @@ public class NextGenWallRunning : MonoBehaviour
 
         wallRemembered = false;
 
+        // Disable Shooting and Aiming
+        playerShooting.enabled = false;
+
         // apply camera effects
         cameraManager.DoFov(90f);
         if (wallLeft) cameraManager.DoTilt(7f);
@@ -290,6 +295,9 @@ public class NextGenWallRunning : MonoBehaviour
         rb.useGravity = true;
 
         pm.wallrunning = false;
+
+        // Enable Shooting and Aiming
+        playerShooting.enabled = true;
 
         cameraManager.DoFov(80f);
         cameraManager.DoTilt(0f);
