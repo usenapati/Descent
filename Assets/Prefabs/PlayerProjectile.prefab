@@ -125,4 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c258ecbd77cbc1141aae3a2995cb1968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vfxHit: {fileID: 7405449115484102838, guid: 3a5c85d4a3d8880449b9096f540f3528, type: 3}
+  vfxNoHit: {fileID: 7012584116051010231, guid: 33eb4758b489c8740a22d75ddfcc383d,
+    type: 3}
   projectileSpeed: 32
