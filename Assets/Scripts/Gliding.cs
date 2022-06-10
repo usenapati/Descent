@@ -6,6 +6,8 @@ public class Gliding : MonoBehaviour
 {
     public CameraManager cameraManager;
     private PlayerMovementAdvanced pm;
+    private NextGenWallRunning wr;
+    private SlidingDone sliding;
     private InputManager inputManager;
     private Rigidbody rb;
 
@@ -35,6 +37,9 @@ public class Gliding : MonoBehaviour
     // Max angle
     public float maxAngle = 45;
 
+    public float minJumpHeight = 2f;
+    public LayerMask whatIsGround;
+
     // Converting the x rotation from min angle to max, into a 0-1 format.
     // 0 means minAngle
     // 1 means maxAngle
@@ -46,6 +51,8 @@ public class Gliding : MonoBehaviour
         cameraManager = FindObjectOfType<CameraManager>();
         rb = GetComponent<Rigidbody>();
         pm = GetComponent<PlayerMovementAdvanced>();
+        wr = GetComponent<NextGenWallRunning>();
+        sliding = GetComponent<SlidingDone>();
         // Make sure the player has a Rigidbody component
         rb = GetComponent<Rigidbody>();
         // Setting rotation variable to the current angles
@@ -54,8 +61,13 @@ public class Gliding : MonoBehaviour
 
     private void LateUpdate()
     {
-        if(pm.air && inputManager.glide_Input)
+        if(AboveGround() && inputManager.glide_Input)
         {
+            //
+            pm.enabled = false;
+            wr.enabled = false;
+            sliding.enabled = false;
+
             rot = transform.rotation.eulerAngles;
             horizontalInput = inputManager.horizontalInput;
             verticalInput = inputManager.verticalInput;
@@ -80,7 +92,7 @@ public class Gliding : MonoBehaviour
             // If 0, we'll have maxDrag and lowSpeed
             // If 1, we'll get minDrag and highSpeed
             mod_drag = 0.5f*(percentage * (minDrag - maxDrag)) + maxDrag;
-            mod_force = 1 * ((percentage * (highSpeed - lowSpeed)) + lowSpeed);
+            mod_force = 0.5f * ((percentage * (highSpeed - lowSpeed)) + lowSpeed);
             // Getting the local space of the velocity
             Vector3 localV = transform.InverseTransformDirection(rb.velocity);
             // Change z velocity to mod_force
@@ -90,6 +102,17 @@ public class Gliding : MonoBehaviour
             // Update drag to the modified one
             rb.drag = mod_drag;
         }
+        else if (!inputManager.glide_Input)
+        {
+            // Enable Movement
+            pm.enabled = true;
+            wr.enabled = true;
+            sliding.enabled = true;
+        }
+    }
 
+    private bool AboveGround()
+    {
+        return !Physics.Raycast(transform.position, Vector3.down, minJumpHeight, whatIsGround);
     }
 }
