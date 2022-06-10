@@ -15,8 +15,15 @@ namespace Dave
                 Vector3 displacementXZ = new Vector3(endPoint.x - startPoint.x, 0f, endPoint.z - startPoint.z);
 
                 Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * gravity * trajectoryHeight);
-                Vector3 velocityXZ = displacementXZ / (Mathf.Sqrt(-2 * trajectoryHeight / gravity) + Mathf.Sqrt(2 * (displacementY - trajectoryHeight) / gravity));
-
+                Vector3 velocityXZ;
+                float val = (Mathf.Sqrt(-2 * trajectoryHeight / gravity) + Mathf.Sqrt(2 * (displacementY - trajectoryHeight) / gravity));
+                if (val == 0)
+                {
+                    val = 0.0001f;
+                }
+                velocityXZ = displacementXZ / val;
+                //Debug.Log("Velocity Y: " + velocityY);
+                Debug.Log("Velocity XZ: " + velocityXZ);
                 return velocityXZ + velocityY;
             }
         }
