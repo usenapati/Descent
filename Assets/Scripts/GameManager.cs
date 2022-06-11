@@ -24,7 +24,15 @@ public class GameManager : MonoBehaviour
         pm.enabled = false;
         wr.enabled = false;
         sliding.enabled = false;
-        GameObject.Find("EnemyAI").SetActive(false);
+        GameObject.Find("Enemy 1").SetActive(false);
+        GameObject.Find("Enemy 2").SetActive(false);
+        GameObject.Find("Enemy 3").SetActive(false);
+        GameObject.Find("Enemy 3 (1)").SetActive(false);
+        GameObject.Find("Enemy 3 (2)").SetActive(false);
+        GameObject.Find("Enemy 3 (3)").SetActive(false);
+        GameObject.Find("Enemy 3 (4)").SetActive(false);
+        GameObject.Find("Enemy 3 (5)").SetActive(false);
+        GameObject.Find("Enemy 3 (6)").SetActive(false);
         GOMenu.SetActive(true);
         
     }
