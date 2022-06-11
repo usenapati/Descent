@@ -6,6 +6,8 @@ using UnityEngine.AI;
 public class AILocomotion : MonoBehaviour
 {
     public Transform playerTransform;
+    private Rigidbody rb;
+    private AnimatorManager animatorManager;
     NavMeshAgent agent;
     public LayerMask whatIsWall;
     public LayerMask whatIsGround;
@@ -26,11 +28,14 @@ public class AILocomotion : MonoBehaviour
     //States
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
+
+    Vector3 lastPosition;
     // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-
+        rb = GetComponent<Rigidbody>();
+        animatorManager = GetComponent<AnimatorManager>();
     }
 
     // Update is called once per frame
@@ -60,6 +65,35 @@ public class AILocomotion : MonoBehaviour
             //Debug.Log("Attack");
             AttackPlayer();
         }
+
+
+    }
+
+    private void LateUpdate()
+    {
+        //Debug.Log(agent.velocity.magnitude);
+        //float verticalInput = agent.velocity.z;
+        //float horizontalInput = agent.velocity.x;
+
+        ////float moveAmount = Mathf.Clamp(Mathf.Abs(horizontalInput) + Mathf.Abs(verticalInput), 0, 5);
+        //float moveAmount = agent.velocity.magnitude;
+        ////Debug.Log(moveAmount);
+        //animatorManager.UpdateEnemyAnimatorValues(0, Mathf.Abs(moveAmount), false);
+
+        float time = Time.deltaTime;
+        Vector3 currentPosition = transform.position;
+
+        Vector3 movement = lastPosition - currentPosition;
+        Vector3 localMovement = transform.InverseTransformVector(movement);
+        Vector3 local3DSpeed = localMovement / time;
+
+
+        animatorManager.UpdateEnemyAnimatorValues(0, Mathf.Abs(local3DSpeed.x) + Mathf.Abs(local3DSpeed.z), false);
+        //animator.SetFloat("LocalY", local3DSpeed.y); // Up / Down movement
+
+        //
+        // Update the lastPosition at the end
+        lastPosition = currentPosition;
 
 
     }
@@ -113,6 +147,9 @@ public class AILocomotion : MonoBehaviour
             Vector3 offset = transform.position;
             offset.z += 0.5f;
             offset.y -= 0.25f;
+
+            // Play Shooting Animation
+
             GameObject p = Instantiate(projectile, offset + (transform.up*0.5f), Quaternion.identity);
             Rigidbody rb = p.GetComponent<Rigidbody>();
 

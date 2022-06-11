@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <asset>
+    <contributor>
+      <author>Blender User</author>
+      <authoring_tool>Blender 2.83.12 commit date:2021-01-26, commit time:15:41, hash:ad0da4275159</authoring_tool>
+    </contributor>
+    <created>2021-10-18T15:45:19</created>
+    <modified>2021-10-18T15:45:19</modified>
+    <unit name="meter" meter="1"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+  <library_cameras>
+    <camera id="Camera-camera" name="Camera">
+      <optics>
+        <technique_common>
+          <perspective>
+            <xfov sid="xfov">39.59775</xfov>
+            <aspect_ratio>1.777778</aspect_ratio>
+            <znear sid="znear">0.1</znear>
+            <zfar sid="zfar">100</zfar>
+          </perspective>
+        </technique_common>
+      </optics>
+      <extra>
+        <technique profile="blender">
+          <shiftx sid="shiftx" type="float">0</shiftx>
+          <shifty sid="shifty" type="float">0</shifty>
+          <dof_distance sid="dof_distance" type="float">10</dof_distance>
+        </technique>
+      </extra>
+    </camera>
+  </library_cameras>
+  <library_lights>
+    <light id="Light-light" name="Light">
+      <technique_common>
+        <point>
+          <color sid="color">1000 1000 1000</color>
+          <constant_attenuation>1</constant_attenuation>
+          <linear_attenuation>0</linear_attenuation>
+          <quadratic_attenuation>0.00111109</quadratic_attenuation>
+        </point>
+      </technique_common>
+      <extra>
+        <technique profile="blender">
+          <type sid="type" type="int">0</type>
+          <flag sid="flag" type="int">0</flag>
+          <mode sid="mode" type="int">1</mode>
+          <gamma sid="blender_gamma" type="float">1</gamma>
+          <red sid="red" type="float">1</red>
+          <green sid="green" type="float">1</green>
+          <blue sid="blue" type="float">1</blue>
+          <shadow_r sid="blender_shadow_r" type="float">0</shadow_r>
+          <shadow_g sid="blender_shadow_g" type="float">0</shadow_g>
+          <shadow_b sid="blender_shadow_b" type="float">0</shadow_b>
+          <energy sid="blender_energy" type="float">1000</energy>
+          <dist sid="blender_dist" type="float">29.99998</dist>
+          <spotsize sid="spotsize" type="float">75</spotsize>
+          <spotblend sid="spotblend" type="float">0.15</spotblend>
+          <att1 sid="att1" type="float">0</att1>
+          <att2 sid="att2" type="float">1</att2>
+          <falloff_type sid="falloff_type" type="int">2</falloff_type>
+          <clipsta sid="clipsta" type="float">0.04999995</clipsta>
+          <clipend sid="clipend" type="float">30.002</clipend>
+          <bias sid="bias" type="float">1</bias>
+          <soft sid="soft" type="float">3</soft>
+          <bufsize sid="bufsize" type="int">2880</bufsize>
+          <samp sid="samp" type="int">3</samp>
+          <buffers sid="buffers" type="int">1</buffers>
+          <area_shape sid="area_shape" type="int">1</area_shape>
+          <area_size sid="area_size" type="float">0.1</area_size>
+          <area_sizey sid="area_sizey" type="float">0.1</area_sizey>
+          <area_sizez sid="area_sizez" type="float">1</area_sizez>
+        </technique>
+      </extra>
+    </light>
+  </library_lights>
+  <library_effects>
+    <effect id="Полевая_мебель_БМ_1-effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <lambert>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <diffuse>
+              <color sid="diffuse">0.226786 0.4575318 0.2685325 1</color>
+            </diffuse>
+            <reflectivity>
+              <float sid="specular">0.5</float>
+            </reflectivity>
+          </lambert>
+        </technique>
+      </profile_COMMON>
+    </effect>
+  </library_effects>
+  <library_images/>
+  <library_materials>
+    <material id="Полевая_мебель_БМ_1-material" name="Полевая мебель БМ 1">
+      <instance_effect url="#Полевая_мебель_БМ_1-effect"/>
+    </material>
+  </library_materials>
+  <library_geometries>
+    <geometry id="Cube-mesh" name="Cube">
+      <mesh>
+        <source id="Cube-mesh-positions">
+          <float_array id="Cube-mesh-positions-array" count="96">1 1 1 1 1 -1 1 -1 1 1 -1 -1 -1 1 1 -1 1 -1 -1 -1 1 -1 -1 -1 1 1.1 -1 -1 1.1 -1 1 1.1 1 -1 -1.1 -1 -1 -1.1 1 1 -1.1 1 1 -1.1 -1 -1 1.1 1 0.56 1 -11 -0.56 1 -11 -0.56 -1 -11 0.56 -1 -11 0.56 1.1 -11 -0.56 1.1 -11 -0.56 -1.1 -11 0.56 -1.1 -11 0.8 -1 5.898829 -0.8 -1 5.898829 -0.8 1 5.898829 0.8 1 5.898829 0.8 -1.1 5.898829 -0.8 -1.1 5.898829 -0.8 1.1 5.898829 0.8 1.1 5.898829</float_array>
+          <technique_common>
+            <accessor source="#Cube-mesh-positions-array" count="32" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Cube-mesh-normals">
+          <float_array id="Cube-mesh-normals-array" count="90">0 0 1 -1 5.96046e-7 0 -1 0 0 0 0 -1 1 0 0 -1 -5.96046e-7 0 0 -1 0 0 1 0 0.9991677 0 0.04079216 -0.9991677 0 0.04079216 1 5.96046e-7 0 1 -5.96046e-7 0 -0.9990335 0 -0.04395741 0.9990335 0 -0.04395741 0.9990335 0 -0.04395753 -0.9990335 0 -0.04395753 0.9991677 0 0.04079204 -0.9991677 0 0.04079204 0 -1 0 0 1 0 0 1 0 0 -1 0 -1 -1.19209e-6 0 -1 1.19209e-6 0 1 -1.19209e-6 0 1 1.19209e-6 0 0 -1 0 0 1 0 0 1 0 0 -1 0</float_array>
+          <technique_common>
+            <accessor source="#Cube-mesh-normals-array" count="30" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Cube-mesh-map-0">
+          <float_array id="Cube-mesh-map-0-array" count="360">0.875 0.5 0.625 0.75 0.625 0.5 0.375 0 0.625 0 0.625 0 0.625 0 0.375 0.25 0.375 0 0.375 0.5 0.125 0.75 0.125 0.5 0.625 0.5 0.375 0.75 0.375 0.5 0.625 0.25 0.375 0.25 0.375 0.25 0.625 0.75 0.375 1 0.375 0.75 0.625 0.25 0.375 0.5 0.375 0.25 0.125 0.5 0.375 0.5 0.375 0.5 0.625 0.75 0.625 0.75 0.625 0.75 0.375 1 0.375 0.75 0.375 0.75 0.625 0.25 0.625 0.25 0.625 0.25 0.625 0.75 0.375 0.75 0.375 0.75 0.375 0.5 0.625 0.5 0.625 0.5 0.125 0.5 0.375 0.5 0.375 0.5 0.375 0.75 0.125 0.75 0.125 0.75 0.375 0.5 0.375 0.25 0.375 0.25 0.375 0.25 0.375 0.25 0.375 0.25 0.375 0.75 0.125 0.75 0.125 0.75 0.375 0.75 0.375 0.75 0.375 0.75 0.375 0.5 0.375 0.5 0.375 0.5 0.375 0 0.375 0 0.375 0 0.625 0.5 0.875 0.5 0.875 0.5 0.875 0.75 0.625 0.75 0.625 0.75 0.625 0.5 0.625 0.5 0.625 0.5 0.625 0 0.625 0 0.625 0 0.625 0.5 0.875 0.5 0.875 0.5 0.625 0.25 0.625 0.5 0.625 0.5 0.875 0.75 0.625 0.75 0.625 0.75 0.625 0.75 0.625 1 0.625 1 0.875 0.5 0.875 0.75 0.625 0.75 0.375 0 0.375 0 0.625 0 0.625 0 0.625 0.25 0.375 0.25 0.375 0.5 0.375 0.75 0.125 0.75 0.625 0.5 0.625 0.75 0.375 0.75 0.625 0.25 0.625 0.25 0.375 0.25 0.625 0.75 0.625 1 0.375 1 0.625 0.25 0.625 0.5 0.375 0.5 0.125 0.5 0.125 0.5 0.375 0.5 0.625 0.75 0.625 0.75 0.625 0.75 0.375 1 0.375 1 0.375 0.75 0.625 0.25 0.625 0.25 0.625 0.25 0.625 0.75 0.625 0.75 0.375 0.75 0.375 0.5 0.375 0.5 0.625 0.5 0.125 0.5 0.125 0.5 0.375 0.5 0.375 0.75 0.375 0.75 0.125 0.75 0.375 0.5 0.375 0.5 0.375 0.25 0.375 0.25 0.375 0.25 0.375 0.25 0.375 0.75 0.375 0.75 0.125 0.75 0.375 0.75 0.375 0.75 0.375 0.75 0.375 0.5 0.375 0.5 0.375 0.5 0.375 0 0.375 0 0.375 0 0.625 0.5 0.625 0.5 0.875 0.5 0.875 0.75 0.875 0.75 0.625 0.75 0.625 0.5 0.625 0.5 0.625 0.5 0.625 0 0.625 0 0.625 0 0.625 0.5 0.625 0.5 0.875 0.5 0.625 0.25 0.625 0.25 0.625 0.5 0.875 0.75 0.875 0.75 0.625 0.75 0.625 0.75 0.625 0.75 0.625 1</float_array>
+          <technique_common>
+            <accessor source="#Cube-mesh-map-0-array" count="180" stride="2">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="Cube-mesh-vertices">
+          <input semantic="POSITION" source="#Cube-mesh-positions"/>
+        </vertices>
+        <triangles material="Полевая_мебель_БМ_1-material" count="60">
+          <input semantic="VERTEX" source="#Cube-mesh-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#Cube-mesh-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#Cube-mesh-map-0" offset="2" set="0"/>
+          <p>4 0 0 2 0 1 0 0 2 7 1 3 12 1 4 6 1 5 6 2 6 5 2 7 7 2 8 1 3 9 7 3 10 5 3 11 0 4 12 3 4 13 1 4 14 4 5 15 9 5 16 5 5 17 13 6 18 11 6 19 14 6 20 15 7 21 8 7 22 9 7 23 5 6 24 16 6 25 1 6 26 2 8 27 28 8 28 13 8 29 11 6 30 23 6 31 14 6 32 4 9 33 30 9 34 15 9 35 2 10 36 14 10 37 3 10 38 1 11 39 10 11 40 0 11 41 17 3 42 20 3 43 16 3 44 19 3 45 22 3 46 18 3 47 8 7 48 21 7 49 9 7 50 9 12 51 17 12 52 5 12 53 3 7 54 18 7 55 7 7 56 14 13 57 19 13 58 3 13 59 1 14 60 20 14 61 8 14 62 7 15 63 22 15 64 11 15 65 27 0 66 30 0 67 26 0 68 25 0 69 28 0 70 24 0 71 10 16 72 27 16 73 0 16 74 12 17 75 25 17 76 6 17 77 0 18 78 26 18 79 4 18 80 15 19 81 31 19 82 10 19 83 6 20 84 24 20 85 2 20 86 13 21 87 29 21 88 12 21 89 4 0 90 6 0 91 2 0 92 7 22 93 11 22 94 12 22 95 6 2 96 4 2 97 5 2 98 1 3 99 3 3 100 7 3 101 0 4 102 2 4 103 3 4 104 4 23 105 15 23 106 9 23 107 13 6 108 12 6 109 11 6 110 15 7 111 10 7 112 8 7 113 5 6 114 17 6 115 16 6 116 2 16 117 24 16 118 28 16 119 11 6 120 22 6 121 23 6 122 4 17 123 26 17 124 30 17 125 2 24 126 13 24 127 14 24 128 1 25 129 8 25 130 10 25 131 17 3 132 21 3 133 20 3 134 19 3 135 23 3 136 22 3 137 8 7 138 20 7 139 21 7 140 9 15 141 21 15 142 17 15 143 3 7 144 19 7 145 18 7 146 14 14 147 23 14 148 19 14 149 1 13 150 16 13 151 20 13 152 7 12 153 18 12 154 22 12 155 27 0 156 31 0 157 30 0 158 25 0 159 29 0 160 28 0 161 10 8 162 31 8 163 27 8 164 12 9 165 29 9 166 25 9 167 0 26 168 27 26 169 26 26 170 15 27 171 30 27 172 31 27 173 6 28 174 25 28 175 24 28 176 13 29 177 28 29 178 29 29 179</p>
+        </triangles>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_visual_scenes>
+    <visual_scene id="Scene" name="Scene">
+      <node id="Camera" name="Camera" type="NODE">
+        <matrix sid="transform">0.6859207 -0.3240135 0.6515582 7.358891 0.7276763 0.3054208 -0.6141704 -6.925791 0 0.8953956 0.4452714 4.958309 0 0 0 1</matrix>
+        <instance_camera url="#Camera-camera"/>
+      </node>
+      <node id="Light" name="Light" type="NODE">
+        <matrix sid="transform">-0.2908646 -0.7711008 0.5663932 4.076245 0.9551712 -0.1998834 0.2183912 1.005454 -0.05518906 0.6045247 0.7946723 5.903862 0 0 0 1</matrix>
+        <instance_light url="#Light-light"/>
+      </node>
+      <node id="Cube" name="Cube" type="NODE">
+        <matrix sid="transform">1.2 0 0 0 0 3.72 0 0 0 0 0.12 0 0 0 0 1</matrix>
+        <instance_geometry url="#Cube-mesh" name="Cube">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="Полевая_мебель_БМ_1-material" target="#Полевая_мебель_БМ_1-material">
+                <bind_vertex_input semantic="UVMap" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#Scene"/>
+  </scene>
+</COLLADA>
