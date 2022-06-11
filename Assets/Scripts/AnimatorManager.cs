@@ -85,4 +85,68 @@ public class AnimatorManager : MonoBehaviour
         //animator.SetFloat(vertical, verticalMovement, 0.1f, Time.deltaTime);
         
     }
+
+    public void UpdateEnemyAnimatorValues(float horizontalMovement, float verticalMovement, bool isSprinting)
+    {
+        //Animation Snapping
+        float snappedHorizontal;
+        float snappedVertical;
+        #region Snapped Horizontal
+        //Horizontal
+        if (horizontalMovement > 0 && horizontalMovement <= 2.5f)
+        {
+            snappedHorizontal = 2.4f;
+        }
+        else if (horizontalMovement > 2.5f)
+        {
+            snappedHorizontal = 3;
+        }
+        else if (horizontalMovement < 0 && horizontalMovement >= -2.5f)
+        {
+            snappedHorizontal = -2.4f;
+        }
+        else if (horizontalMovement < -2.5f)
+        {
+            snappedHorizontal = -3;
+        }
+        else
+        {
+            snappedHorizontal = 0;
+        }
+        #endregion
+        #region Snapped Vertical
+        if (verticalMovement > 0 && verticalMovement <= 2.5f)
+        {
+            snappedVertical = 2.4f;
+        }
+        else if (verticalMovement > 2.5f)
+        {
+            snappedVertical = 3;
+        }
+        else if (verticalMovement < 0 && verticalMovement >= -2.5f)
+        {
+            snappedVertical = -2.4f;
+        }
+        else if (verticalMovement < -2.5f)
+        {
+            snappedVertical = -3;
+        }
+        else
+        {
+            snappedVertical = 0;
+        }
+        #endregion
+
+        if (isSprinting)
+        {
+            snappedHorizontal = horizontalMovement;
+            snappedVertical = 5;
+        }
+
+        animator.SetFloat(horizontal, snappedHorizontal, 0.1f, Time.deltaTime);
+        animator.SetFloat(vertical, snappedVertical, 0.1f, Time.deltaTime);
+        //animator.SetFloat(horizontal, horizontalMovement, 0.1f, Time.deltaTime);
+        //animator.SetFloat(vertical, verticalMovement, 0.1f, Time.deltaTime);
+
+    }
 }
