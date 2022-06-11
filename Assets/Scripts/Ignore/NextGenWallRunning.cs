@@ -348,7 +348,7 @@ public class NextGenWallRunning : MonoBehaviour
             // Case 1 - raycast hits (in maxDistance)
             markerSphere.position = viewRayHit.point;
 
-            text_predictionState.SetText("in distance");
+            //text_predictionState.SetText("in distance");
         }
 
         else if (Physics.SphereCast(cam.transform.position, 1f, cameraManager.transform.forward, out viewRayHit, 10f, whatIsWall))
@@ -362,7 +362,7 @@ public class NextGenWallRunning : MonoBehaviour
             if(Physics.Raycast(maxRangePoint, -viewRayHit.normal, out wallHit, 4f, whatIsWall))
             {
                 markerSphere.position = wallHit.point;
-                text_predictionState.SetText("out of distance, to wall");
+                //text_predictionState.SetText("out of distance, to wall");
             }
             else
             {
@@ -370,12 +370,12 @@ public class NextGenWallRunning : MonoBehaviour
 
                 if(Vector3.Distance(cam.transform.position, viewRayHit.point) <= maxJumpRange)
                 {
-                    text_predictionState.SetText("out of distance, hitPoint");
+                    //text_predictionState.SetText("out of distance, hitPoint");
                     markerSphere.position = viewRayHit.point;
                 }
                 else
                 {
-                    text_predictionState.SetText("out of distance, can't predict point..."); // -> same as case 3
+                    //text_predictionState.SetText("out of distance, can't predict point..."); // -> same as case 3
                     markerSphere.position = cam.transform.position + cameraManager.transform.forward * maxJumpRange;
                 }
             }
@@ -387,7 +387,7 @@ public class NextGenWallRunning : MonoBehaviour
             // -> Normal Jump
             // Gizmos.DrawWireSphere(cam.transform.position + camHolder.forward * maxJumpRange, .5f);
             markerSphere.position = cam.transform.position + cameraManager.transform.forward * maxJumpRange;
-            text_predictionState.SetText("complete miss");
+            //text_predictionState.SetText("complete miss");
         }
     }
 
