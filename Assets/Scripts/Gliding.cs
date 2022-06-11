@@ -5,6 +5,7 @@ using UnityEngine;
 public class Gliding : MonoBehaviour
 {
     public CameraManager cameraManager;
+    private Animator animator;
     private PlayerMovementAdvanced pm;
     private NextGenWallRunning wr;
     private SlidingDone sliding;
@@ -47,6 +48,7 @@ public class Gliding : MonoBehaviour
 
     private void Start()
     {
+        animator = GetComponent<Animator>();
         inputManager = GetComponent<InputManager>();
         cameraManager = FindObjectOfType<CameraManager>();
         rb = GetComponent<Rigidbody>();
@@ -64,6 +66,7 @@ public class Gliding : MonoBehaviour
         if(AboveGround() && inputManager.glide_Input)
         {
             //
+            animator.SetBool("IsGliding", true);
             pm.enabled = false;
             wr.enabled = false;
             sliding.enabled = false;
@@ -112,6 +115,7 @@ public class Gliding : MonoBehaviour
         else if (!inputManager.glide_Input)
         {
             // Enable Movement
+            animator.SetBool("IsGliding", false);
             pm.enabled = true;
             wr.enabled = true;
             sliding.enabled = true;
