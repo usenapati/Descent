@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Start Screen.unity
     guid: 6be383f7d90347d4a9b0062f26e3ab01
   - enabled: 1
+    path: Assets/Scenes/LevelOne-Corridors.unity
+    guid: 6d690b0f6864ac84c9fb8a8059ae6591
+  - enabled: 0
     path: Assets/Scenes/Movement.unity
     guid: 981c0833db4a718448fadb9a604bcd92
   - enabled: 1
