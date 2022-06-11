@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour
 {
     public GameObject GOMenu;
     public PlayerMovementAdvanced pm;
+    public NextGenWallRunning wr;
+    public SlidingDone sliding;
+    public AILocomotion aiLoco;
     private float healthplaceholder;
     public void CompleteLevel()
     {
@@ -18,10 +21,11 @@ public class GameManager : MonoBehaviour
 
     public void gameOverMenu()
     {
-        if(healthplaceholder == 0)
-        {
-            GOMenu.SetActive(true);
-        }
+        pm.enabled = false;
+        wr.enabled = false;
+        sliding.enabled = false;
+        GameObject.Find("EnemyAI").SetActive(false);
+        GOMenu.SetActive(true);
         
     }
 }
