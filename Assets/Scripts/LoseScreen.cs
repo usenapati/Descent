@@ -3,13 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class WinScreen : MonoBehaviour
+public class LoseScreen : MonoBehaviour
 {
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
     }
+
+    public void StartOver()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+    }
+
     public void ReturnToMenu()
     {
         SceneManager.LoadScene("Start Screen");
