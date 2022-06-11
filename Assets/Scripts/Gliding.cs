@@ -73,7 +73,7 @@ public class Gliding : MonoBehaviour
             verticalInput = inputManager.verticalInput;
             // Rotation
             // Y
-            rot.y += 40 * horizontalInput * Time.deltaTime;
+            rot.y += 60 * horizontalInput * Time.deltaTime;
             // Z
             rot.z = -5 * horizontalInput;
             // Limiting the z-axis
