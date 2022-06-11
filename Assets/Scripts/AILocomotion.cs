@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class AILocomotion : MonoBehaviour
 {
     public Transform playerTransform;
+    public Transform muzzleTransform;
     private Rigidbody rb;
     private AnimatorManager animatorManager;
     NavMeshAgent agent;
@@ -165,11 +166,12 @@ public class AILocomotion : MonoBehaviour
 
         if (!alreadyAttacked)
         {
-            Vector3 offset = transform.position;
-            offset.z += 0.5f;
-            offset.y -= 0.25f;
+            Vector3 offset = muzzleTransform.position;
+            //offset.z += 0.5f;
+            //offset.y -= 0.25f;
 
             // Play Shooting Animation
+            animatorManager.PlayTargetAnimation("FireRifle", false);
 
             GameObject p = Instantiate(projectile, offset + (transform.up*0.5f), Quaternion.identity);
             Rigidbody rb = p.GetComponent<Rigidbody>();
