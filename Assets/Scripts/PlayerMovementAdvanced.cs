@@ -391,13 +391,13 @@ public class PlayerMovementAdvanced : MonoBehaviour
     {
         Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-        if (OnSlope())
+        /*if (OnSlope())
             text_speed.SetText("Speed: " + Round(rb.velocity.magnitude, 1));
 
         else
             text_speed.SetText("Speed: " + Round(flatVel.magnitude, 1));
 
-        text_mode.SetText(state.ToString());
+        text_mode.SetText(state.ToString());*/
     }
 
     public static float Round(float value, int digits)
