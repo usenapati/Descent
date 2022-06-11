@@ -6,6 +6,7 @@ public class PlayerShooting : MonoBehaviour
 {
     InputManager inputManager;
     NextGenWallRunning wallRunning;
+    AnimatorManager animatorManager;
 
     public LayerMask aimColliderLayerMask;
     //public Transform debugTransform;
@@ -16,6 +17,7 @@ public class PlayerShooting : MonoBehaviour
     {
         inputManager = GetComponent<InputManager>();
         wallRunning = GetComponent<NextGenWallRunning>();
+        animatorManager = GetComponent<AnimatorManager>();
     }
 
     void Start()
@@ -46,6 +48,7 @@ public class PlayerShooting : MonoBehaviour
 
             if (inputManager.shoot_Input)
             {
+                animatorManager.PlayTargetAnimation("Shoot", false);
                 Vector3 aimDir = (mouseWorldPosition - spawnBulletTransform.position).normalized;
                 Instantiate(projectilePrefab, spawnBulletTransform.position, Quaternion.LookRotation(aimDir ,Vector3.up));
                 inputManager.shoot_Input = false;
