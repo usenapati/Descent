@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1454033374997938897}
   - component: {fileID: 6181428338958357137}
   - component: {fileID: 2805613101342638662}
+  - component: {fileID: 862909819142509161}
   m_Layer: 0
   m_Name: EnemyProjectile
   m_TagString: Untagged
@@ -91,7 +92,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3016012751080945733}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
@@ -112,3 +113,20 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!114 &862909819142509161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3016012751080945733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 527903b90a8c65240bc81a26dc950141, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vfxHit: {fileID: 7405449115484102838, guid: 3a5c85d4a3d8880449b9096f540f3528, type: 3}
+  vfxNoHit: {fileID: 7012584116051010231, guid: 33eb4758b489c8740a22d75ddfcc383d,
+    type: 3}
+  projectileSpeed: 32
+  damage: 10

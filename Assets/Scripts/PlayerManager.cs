@@ -9,7 +9,7 @@ public class PlayerManager : MonoBehaviour
     CameraManager cameraManager;
     //PlayerLocomotion playerLocomotion;
     PlayerMovementAdvanced playerMovement;
-
+    public GameManager gameManager;
     public bool isInteracting;
     public float health;
 
@@ -59,6 +59,7 @@ public class PlayerManager : MonoBehaviour
         if (health <= 0)
         {
             Invoke(nameof(DestroyPlayer), 0.5f);
+            gameManager.gameOverMenu();
         }
     }
 
