@@ -21,6 +21,11 @@ public class AILocomotion : MonoBehaviour
     bool walkPointSet;
     public float walkPointRange;
 
+    Vector3 worldDeltaPosition;
+    Vector2 groundDeltaPosition;
+    Vector2 smoothDeltaPosition = Vector2.zero;
+    public Vector2 velocity = Vector2.zero;
+
     //Attacking
     public float timeBetweenAttacks;
     bool alreadyAttacked;
@@ -36,11 +41,32 @@ public class AILocomotion : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
         animatorManager = GetComponent<AnimatorManager>();
+        agent.updatePosition = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        worldDeltaPosition = agent.nextPosition - transform.position;
+        groundDeltaPosition.x = Vector3.Dot(transform.right, worldDeltaPosition);
+        groundDeltaPosition.y = Vector3.Dot(transform.up, worldDeltaPosition);
+
+        // Low-pass filter the deltaMove
+        float smooth = Mathf.Min(1.0f, Time.deltaTime / 0.15f);
+        smoothDeltaPosition = Vector2.Lerp(smoothDeltaPosition, groundDeltaPosition, smooth);
+
+        // Update velocity if time advances
+        if (Time.deltaTime > 1e-5f)
+            velocity = smoothDeltaPosition / Time.deltaTime;
+
+        bool shouldMove = velocity.magnitude > 0.025f && agent.remainingDistance > agent.radius;
+        //velocity = (Time.deltaTime > 1e-5f) ? groundDeltaPosition / Time.deltaTime : velocity = Vector3.zero;
+
+        animatorManager.animator.SetBool("IsMoving", shouldMove);
+        animatorManager.animator.SetFloat("Horizontal", Mathf.Clamp(velocity.x, -1, 1));
+        animatorManager.animator.SetFloat("Vertical", Mathf.Clamp(velocity.y, 0, 6.5f));
+
+
         //agent.destination = playerTransform.position;
 
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
@@ -69,6 +95,14 @@ public class AILocomotion : MonoBehaviour
 
     }
 
+    private void OnAnimatorMove()
+    {
+        transform.position = agent.nextPosition;
+        //Vector3 position = animatorManager.animator.rootPosition;
+        //position.y = agent.nextPosition.y;
+        //transform.position = position;
+    }
+
     private void LateUpdate()
     {
         //Debug.Log(agent.velocity.magnitude);
@@ -80,20 +114,7 @@ public class AILocomotion : MonoBehaviour
         ////Debug.Log(moveAmount);
         //animatorManager.UpdateEnemyAnimatorValues(0, Mathf.Abs(moveAmount), false);
 
-        float time = Time.deltaTime;
-        Vector3 currentPosition = transform.position;
-
-        Vector3 movement = lastPosition - currentPosition;
-        Vector3 localMovement = transform.InverseTransformVector(movement);
-        Vector3 local3DSpeed = localMovement / time;
-
-
-        animatorManager.UpdateEnemyAnimatorValues(0, Mathf.Abs(local3DSpeed.x) + Mathf.Abs(local3DSpeed.z), false);
-        //animator.SetFloat("LocalY", local3DSpeed.y); // Up / Down movement
-
-        //
-        // Update the lastPosition at the end
-        lastPosition = currentPosition;
+        
 
 
     }
@@ -142,7 +163,7 @@ public class AILocomotion : MonoBehaviour
         agent.SetDestination(transform.position);
         transform.LookAt(playerTransform);
 
-        if(!alreadyAttacked)
+        if (!alreadyAttacked)
         {
             Vector3 offset = transform.position;
             offset.z += 0.5f;
