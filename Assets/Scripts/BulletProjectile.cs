@@ -8,6 +8,7 @@ public class BulletProjectile : MonoBehaviour
     public Transform vfxNoHit;
     private Rigidbody bulletRigidBody;
     public float projectileSpeed = 32.0f;
+    public float damage = 10.0f;
 
     private void Awake()
     {
@@ -25,6 +26,7 @@ public class BulletProjectile : MonoBehaviour
         if (other.GetComponent<AILocomotion>() != null)
         {
             //Damage Enemy
+            other.GetComponent<AILocomotion>().TakeDamage(damage);
             Instantiate(vfxHit, transform.position, Quaternion.identity);
         }
         else
